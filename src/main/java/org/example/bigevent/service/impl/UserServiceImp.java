@@ -4,8 +4,13 @@ import org.example.bigevent.mapper.UserMapper;
 import org.example.bigevent.pojo.User;
 import org.example.bigevent.service.UserService;
 import org.example.bigevent.utils.Md5Util;
+import org.example.bigevent.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Map;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -24,5 +29,25 @@ public class UserServiceImp implements UserService {
         String md5String = Md5Util.getMD5String(password);
         //添加
         userMapper.add(username,md5String);
+    }
+
+    @Override
+    public void update(User user) {
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.update(user);
+    }
+
+    @Override
+    public void updateAvater(String avatarUrl) {
+        Map<String, Object> tmp = ThreadLocalUtil.get();
+        Integer id = (Integer) tmp.get("userId");
+        userMapper.updateAvatar(avatarUrl,id);
+    }
+
+    @Override
+    public void updatePwd(String newPwd) {
+        Map<String, Object> tmp = ThreadLocalUtil.get();
+        Integer id = (Integer) tmp.get("userId");
+        userMapper.updatePwd(Md5Util.getMD5String(newPwd),id);
     }
 }

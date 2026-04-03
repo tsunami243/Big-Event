@@ -2,13 +2,24 @@ package org.example.bigevent.pojo;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+
 import java.time.LocalDateTime;
 
 public class User {
+    @NotNull(message = "主键ID不能为空")
     private Integer id;//主键ID
     private String username;//用户名
+    @JsonIgnore
     private String password;//密码
+    @NotEmpty(message = "昵称不能为空")
+    @Pattern(regexp = "^[a-zA-Z0-9_]{1,10}$", message = "昵称只能包含字母、数字和下划线，且长度在1到10之间")
     private String nickname;//昵称
+    @Email(message = "邮箱格式错误")
     private String email;//邮箱
     private String userPic;//用户头像地址
     private LocalDateTime createTime;//创建时间
