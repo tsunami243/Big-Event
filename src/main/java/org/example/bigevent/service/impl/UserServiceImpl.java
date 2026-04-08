@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Map;
 
 @Service
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
