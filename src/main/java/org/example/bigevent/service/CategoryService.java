@@ -15,5 +15,4 @@ public interface CategoryService {
 
     void delete(Integer id);
 
-    List<Integer> findIds();
 }

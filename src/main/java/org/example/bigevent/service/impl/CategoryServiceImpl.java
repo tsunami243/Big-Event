@@ -45,13 +45,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Integer id) {
+        Category category = categoryMapper.finById(id);
+        if(category == null){
+            throw new RuntimeException("该分类不存在");
+        }
         categoryMapper.delete(id);
     }
 
-    @Override
-    public List<Integer> findIds() {
-        Map<String,Object> map = ThreadLocalUtil.get();
-        Integer userId = (Integer) map.get("userId");
-        return categoryMapper.findIds(userId);
-    }
+
 }

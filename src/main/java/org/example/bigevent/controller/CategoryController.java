@@ -42,16 +42,8 @@ public class CategoryController {
 
     @DeleteMapping
     public Result delete(Integer id){
-        if (id == null){
-            return Result.error("id不能为空");
-        }
-        List<Integer> ids = categoryService.findIds();
-        for (int i = 0; i < ids.size(); i++) {
-            if (ids.get(i) == id){
-                categoryService.delete(id);
-                return Result.success();
-            }
-        }
-        return Result.error("该分类不存在");
+        if (id == null){return Result.error("id不能为空");}
+        categoryService.delete(id);
+        return Result.success();
     }
 }
