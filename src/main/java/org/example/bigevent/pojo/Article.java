@@ -1,15 +1,30 @@
 package org.example.bigevent.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import org.example.bigevent.anno.State;
+import org.hibernate.validator.constraints.URL;
+
 import java.time.LocalDateTime;
 
 public class Article {
+    @NotNull(message = "文章ID不能为空")
     private Integer id;//主键ID
+    @NotEmpty(message = "文章标题不能为空")
+    @Pattern(regexp = "^\\S{1,10}$",message = "文章标题只能包含字母、数字、下划线和中文")
     private String title;//文章标题
+    @NotEmpty(message = "文章内容不能为空")
     private String content;//文章内容
+    @URL(message = "封面图像格式错误")
     private String coverImg;//封面图像
+    @State
     private String state;//发布状态 已发布|草稿
+    @NotNull(message = "文章分类不能为空")
     private Integer categoryId;//文章分类id
+    @JsonIgnore
     private Integer createUser;//创建人ID
     private LocalDateTime createTime;//创建时间
     private LocalDateTime updateTime;//更新时间
